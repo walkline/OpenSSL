@@ -57,29 +57,29 @@ build()
          # Simulator
          export CROSS_TOP="${IPHONESIMULATOR_PLATFORM}/Developer"
          export CROSS_SDK="iPhoneSimulator${IOS_SDK_VERSION}.sdk"
-         ./Configure darwin64-x86_64-cc --openssldir="/tmp/openssl-${OPENSSL_VERSION}-${ARCH}" &> "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}.log"
+         ./Configure darwin64-x86_64-cc --shared --openssldir="/tmp/openssl-${OPENSSL_VERSION}-${ARCH}" &> "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}.log"
          sed -ie "s!^CFLAG=!CFLAG=-isysroot ${CROSS_TOP}/SDKs/${CROSS_SDK} -miphoneos-version-min=${IOS_DEPLOYMENT_VERSION} !" "Makefile"
       elif [ "$ARCH" == "i386" ]; then
          # Simulator
          export CROSS_TOP="${IPHONESIMULATOR_PLATFORM}/Developer"
          export CROSS_SDK="iPhoneSimulator${IOS_SDK_VERSION}.sdk"
-         ./Configure iphoneos-cross --openssldir="/tmp/openssl-${OPENSSL_VERSION}-${ARCH}" &> "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}.log"
+         ./Configure iphoneos-cross --shared --openssldir="/tmp/openssl-${OPENSSL_VERSION}-${ARCH}" &> "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}.log"
          sed -ie "s!^CFLAG=!CFLAG=-isysroot ${CROSS_TOP}/SDKs/${CROSS_SDK} -miphoneos-version-min=${IOS_DEPLOYMENT_VERSION} !" "Makefile"
       else
          # iOS
          export CROSS_TOP="${IPHONEOS_PLATFORM}/Developer"
          export CROSS_SDK="iPhoneOS${IOS_SDK_VERSION}.sdk"
-         ./Configure iphoneos-cross --openssldir="/tmp/openssl-${OPENSSL_VERSION}-${ARCH}" &> "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}.log"
+         ./Configure iphoneos-cross --shared --openssldir="/tmp/openssl-${OPENSSL_VERSION}-${ARCH}" &> "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}.log"
          perl -i -pe 's|static volatile sig_atomic_t intr_signal|static volatile int intr_signal|' crypto/ui/ui_openssl.c
          sed -ie "s!^CFLAG=!CFLAG=-isysroot ${CROSS_TOP}/SDKs/${CROSS_SDK} -miphoneos-version-min=${IOS_DEPLOYMENT_VERSION} !" "Makefile"
       fi
    else
       #OSX
       if [ "$ARCH" == "x86_64" ]; then
-         ./Configure darwin64-x86_64-cc --openssldir="/tmp/openssl-${OPENSSL_VERSION}-${ARCH}" &> "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}.log"
+         ./Configure darwin64-x86_64-cc --shared --openssldir="/tmp/openssl-${OPENSSL_VERSION}-${ARCH}" &> "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}.log"
          sed -ie "s!^CFLAG=!CFLAG=-isysroot ${SDK} -mmacosx-version-min=${OSX_DEPLOYMENT_VERSION} !" "Makefile"
       elif [ "$ARCH" == "i386" ]; then
-         ./Configure darwin-i386-cc --openssldir="/tmp/openssl-${OPENSSL_VERSION}-${ARCH}" &> "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}.log"
+         ./Configure darwin-i386-cc --shared --openssldir="/tmp/openssl-${OPENSSL_VERSION}-${ARCH}" &> "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}.log"
          sed -ie "s!^CFLAG=!CFLAG=-isysroot ${SDK} -mmacosx-version-min=${OSX_DEPLOYMENT_VERSION} !" "Makefile"
       fi
    fi
@@ -90,6 +90,14 @@ build()
    rm -rf "openssl-${OPENSSL_VERSION}"
 
    # Add arch to library
+   if [ -f "lib-${TYPE}/libcrypto.1.0.0.dylib" ]; then
+      xcrun lipo "lib-${TYPE}/libcrypto.1.0.0.dylib" "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}/lib/libcrypto.1.0.0.dylib" -create -output "lib-${TYPE}/libcrypto.1.0.0.dylib"
+      xcrun lipo "lib-${TYPE}/libssl.1.0.0.dylib" "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}/lib/libssl.1.0.0.dylib" -create -output "lib-${TYPE}/libssl.1.0.0.dylib"
+   else
+      cp "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}/lib/libcrypto.1.0.0.dylib" "lib-${TYPE}/libcrypto.1.0.0.dylib"
+      cp "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}/lib/libssl.1.0.0.dylib" "lib-${TYPE}/libssl.1.0.0.dylib"
+   fi
+
    if [ -f "lib-${TYPE}/libcrypto.a" ]; then
       xcrun lipo "lib-${TYPE}/libcrypto.a" "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}/lib/libcrypto.a" -create -output "lib-${TYPE}/libcrypto.a"
       xcrun lipo "lib-${TYPE}/libssl.a" "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}/lib/libssl.a" -create -output "lib-${TYPE}/libssl.a"
@@ -97,6 +105,7 @@ build()
       cp "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}/lib/libcrypto.a" "lib-${TYPE}/libcrypto.a"
       cp "/tmp/openssl-${OPENSSL_VERSION}-${ARCH}/lib/libssl.a" "lib-${TYPE}/libssl.a"
    fi
+
 }
 
 build "armv7" "${IPHONEOS_SDK}" "ios"
