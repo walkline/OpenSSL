@@ -88,7 +88,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C71BFA011D395F47006DBF18 /* openssl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = openssl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C71BFA011D395F47006DBF18 /* openssl-iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "openssl-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C71BFA041D395F47006DBF18 /* openssl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = openssl.h; sourceTree = "<group>"; };
 		C71BFA061D395F47006DBF18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C71BFABE1D3961CD006DBF18 /* build-framework-ios.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-framework-ios.sh"; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 		C71BFA021D395F47006DBF18 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C71BFA011D395F47006DBF18 /* openssl.framework */,
+				C71BFA011D395F47006DBF18 /* openssl-iOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -400,9 +400,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		C71BFA001D395F47006DBF18 /* openssl */ = {
+		C71BFA001D395F47006DBF18 /* openssl-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C71BFA091D395F47006DBF18 /* Build configuration list for PBXNativeTarget "openssl" */;
+			buildConfigurationList = C71BFA091D395F47006DBF18 /* Build configuration list for PBXNativeTarget "openssl-iOS" */;
 			buildPhases = (
 				C71BF9FC1D395F47006DBF18 /* Sources */,
 				C71BF9FD1D395F47006DBF18 /* Frameworks */,
@@ -414,9 +414,9 @@
 			);
 			dependencies = (
 			);
-			name = openssl;
+			name = "openssl-iOS";
 			productName = "OpenSSL-iOS";
-			productReference = C71BFA011D395F47006DBF18 /* openssl.framework */;
+			productReference = C71BFA011D395F47006DBF18 /* openssl-iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -445,7 +445,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C71BFA001D395F47006DBF18 /* openssl */,
+				C71BFA001D395F47006DBF18 /* openssl-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -636,13 +636,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C71BFA091D395F47006DBF18 /* Build configuration list for PBXNativeTarget "openssl" */ = {
+		C71BFA091D395F47006DBF18 /* Build configuration list for PBXNativeTarget "openssl-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C71BFA0A1D395F47006DBF18 /* Debug */,
 				C71BFA0B1D395F47006DBF18 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
