@@ -88,7 +88,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C71BFA011D395F47006DBF18 /* openssl-iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "openssl-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C71BFA011D395F47006DBF18 /* openssl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = openssl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C71BFA041D395F47006DBF18 /* openssl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = openssl.h; sourceTree = "<group>"; };
 		C71BFA061D395F47006DBF18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C71BFABE1D3961CD006DBF18 /* build-framework-ios.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-framework-ios.sh"; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 		C71BFA021D395F47006DBF18 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C71BFA011D395F47006DBF18 /* openssl-iOS.framework */,
+				C71BFA011D395F47006DBF18 /* openssl.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -416,7 +416,7 @@
 			);
 			name = "openssl-iOS";
 			productName = "OpenSSL-iOS";
-			productReference = C71BFA011D395F47006DBF18 /* openssl-iOS.framework */;
+			productReference = C71BFA011D395F47006DBF18 /* openssl.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -596,7 +596,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.krzyzanowskim.OpenSSL-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = openssl;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -619,7 +619,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.krzyzanowskim.OpenSSL-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = openssl;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
